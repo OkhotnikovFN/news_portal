@@ -1,0 +1,36 @@
+{% load static %}
+
+{% url 'app_news:personal_news_list' as personal_news_path %}
+
+<div class="object-filters object-filters_visible-filters">
+    <label class="object-filters__fields">Показывать по
+        <select name="news_per_page">
+            <option>10</option>
+            <option>25</option>
+            <option>50</option>
+        </select>
+    новостей</label>
+    <label class="object-filters__fields">Название новости
+        <input name="news_title" aria-label="Фильтр по названию новости" title="Фильтр по названию новости" placeholder="Название новости">
+    </label>
+    <label class="object-filters__fields" {% if request.path == personal_news_path %} hidden {% endif %}>Автор новости
+        <input name="news_author" aria-label="Фильтр по автору новости" title="Фильтр по автору новости" placeholder="Автор новости">
+    </label>
+    <label class="object-filters__fields">Дата
+        с <input name="news_date_begin" type="date" aria-label="Начало интервала" title="Начало интервала">
+        по <input name="news_date_end" type="date" aria-label="Конец интервала" title="Конец интервала">
+    </label>
+    <div class="object-filters__buttons">
+        <button type="button" id="news_filter_apply">Применить фильтр</button>
+        <button type="button" id="news_filter_delete">Сбросить фильтр</button>
+    </div>
+</div>
+
+<script type="module">
+    import {addCommonFilters} from '{% static 'project_modules/js/change_query_string.js' %}';
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // Установка фильтров для отображаемых новостей.
+        addCommonFilters('news', ['news_title', 'news_author', 'news_date_begin', 'news_date_end'])
+    });
+</script>

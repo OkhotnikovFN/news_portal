@@ -1,0 +1,23 @@
+<div class="single-news-container">
+    <p class="single-news-container__content">{{ news.content }}</p>
+    <div>
+        <p class="content-info">
+            {% if news.published_at %}
+                Дата публикации {{ news.published_at }}
+            {% else %}
+                Дата создания {{ news.created_at }}
+            {% endif %}
+        </p>
+        <p class="content-info">Дата редактирования {{ news.edited_at }}</p>
+    </div>
+
+    {% if news.author %}
+        <p class="content-info">Автор: {{ news.author }}</p>
+    {% else %}
+        <p class="content-info">Инкогнито</p>
+    {% endif %}
+
+    {% if not news.published_at %}
+        <p class="content-info content-info_not-published">Еще не опубликована</p>
+    {% endif %}
+</div>

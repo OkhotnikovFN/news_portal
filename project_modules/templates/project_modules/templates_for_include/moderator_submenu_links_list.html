@@ -1,0 +1,6 @@
+<li class="nav-list__item nav-list__item_moderator {{ nav_list__item_moderator }}">
+    <a href="{% url 'app_users:main_moderator' %}" aria-label="Меню модерации" title="Меню модерации">Меню модерации</a>
+    <ul class="submenu {{ nav_list_submenu }}">
+        <li class="submenu__item {{ nav_list_submenu_item }}"><a href="{% url 'app_users:users_list_moderation' %}" aria-label="Модерация пользователей" title="Модерация пользователей">Модерация пользователей</a>
+        <li class="submenu__item {{ nav_list_submenu_item }}"><a href="{% url 'app_news:news_list_moderation' %}" aria-label="Модерация новостей" title="Модерация новостей">Модерация новостей</a>
+    </ul>

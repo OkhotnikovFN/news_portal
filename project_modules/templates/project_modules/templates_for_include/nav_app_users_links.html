@@ -1,0 +1,16 @@
+{% if request.user.is_authenticated %}
+    <a href="{% url 'app_users:logout' %}?next={{ request.path }}" class="{{ class }}" aria-label="Выйти из своего пользователя" title="Выйти из своего пользователя">Покинуть сайт</a>
+    {% url 'app_users:profile' as user_profile_url %}
+    {% if top_menu_flag %}
+        <div class="personal-account-links-container">
+            <a href="{{ user_profile_url }}"  class="{{ class }}" aria-label="Личный кабинет" title="Личный кабинет">Личный кабинет</a>
+            <ul class="submenu submenu_personal-account-links">
+                <li class="submenu__item submenu__item_color_white"><a href="{% url 'app_news:personal_news_list' %}" aria-label="Личные новости" title="Личные новости">Мои новости</a>
+            </ul>
+        </div>
+    {% else %}
+         <a href="{{ user_profile_url }}"  class="{{ class }}" aria-label="Личный кабинет" title="Личный кабинет">Личный кабинет</a>
+    {% endif %}
+{% else %}
+    <a href="{% url 'app_users:login' %}" class="{{ class }}" aria-label="Войти на сайт под своим пользователем" title="Войти на сайт под своим пользователем">Войти на сайт</a>
+{% endif %}

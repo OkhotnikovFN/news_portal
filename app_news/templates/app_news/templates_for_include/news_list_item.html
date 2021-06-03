@@ -1,0 +1,47 @@
+{% load app_users_templatetags %}
+
+{% url 'app_news:personal_news_list' as personal_path %}
+
+<li class="object-list__item {% if not single_news.is_published %} object-list__item_without_status {% endif %}">
+    <div class="object-list__item-container">
+        <a class="object-list__link object-list__link_main-link" href="{% url 'app_news:news_detail' pk=single_news.id slug=single_news.slug%}" aria-label="Перейти к новости {{ single_news }}" title="Перейти к новости {{ single_news }}">
+            <span class="object-list__link-context">{{ single_news }}</span>
+
+            {% if not single_news.is_published %}
+                <span class="object-list__link-context">(Новость еще не опубликована)</span>
+            {% endif %}
+
+
+            <div class="object-list__info">
+                <span class="object-list__link-context content-info">Автор: {{ single_news.author }}</span>
+
+                <span class="object-list__link-context content-info">
+                    {% if single_news.is_published %}
+                        Дата публикации: {{ single_news.published_at|date:'d E Yг. H:i' }}
+                    {% else %}
+                        Дата создания: {{ single_news.created_at|date:'d E Yг. H:i' }}
+                    {% endif %}
+                </span>
+            </div>
+        </a>
+
+        {% if request.user == single_news.author and request.path == personal_path%}
+            <form method="post" action="{% url 'app_news:news_delete' pk=single_news.id slug=single_news.slug %}">
+                {% csrf_token %}
+                <button class="object-list__link object-list__link_edit-link" type="submit">Удалить новость</button>
+            </form>
+        {% endif %}
+
+        {% if single_form%}
+            {{ single_form.non_field_errors }}
+            {{ single_form.id }}
+            {{ single_form.is_published.errors }}
+            <label class="object-list__status-label"> Статус публикации&nbsp;{{ single_form.is_published }}</label>
+        {% endif %}
+        {% if request.user|is_moderator %}
+            <a class="object-list__link object-list__link_edit-link" href="{% url 'app_news:news_moderation' pk=single_news.id slug=single_news.slug%}" aria-label="Перейти к странице модерации новости {{ single_news }}" title="Перейти к странице модерации новости {{ single_news }}">
+            Детальная модерация
+            </a>
+        {% endif %}
+    </div>
+</li>

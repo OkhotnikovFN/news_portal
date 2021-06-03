@@ -1,0 +1,17 @@
+{% extends 'project_modules/index.html' %}
+
+{% block title %}
+        Личные новости
+{%  endblock %}
+
+{% block content %}
+    <h2>Ваши новости</h2>
+    {% if news_successfully_delete %}
+        <h2>Новость {{ deleted_news_title }} успешно удалена</h2>
+    {% endif %}
+
+    {% include 'app_news/templates_for_include/accessible_news_filters.html' %}
+    {% include 'app_news/templates_for_include/activity_news_filter.html' %}
+    {% include 'app_news/templates_for_include/base_news_list.html' %}
+
+{% endblock %}

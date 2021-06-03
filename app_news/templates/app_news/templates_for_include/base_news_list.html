@@ -1,0 +1,18 @@
+{% include 'project_modules/templates_for_include/set_links_for_object_list_paginator.html' %}
+
+{% if news %}
+    {% include 'project_modules/templates_for_include/object_paginator_links_list.html' %}
+
+    <div>
+        <ol class="object-list" start="{{ page_obj.start_index }}">
+            {% for single_news in news %}
+                {% include 'app_news/templates_for_include/news_list_item.html' %}
+            {% endfor %}
+        </ol>
+    </div>
+
+    {% include 'project_modules/templates_for_include/object_paginator_links_list.html' %}
+
+{% else %}
+    <h2>Нет новостей, удовлетворяюших вашему запросу</h2>
+{% endif %}

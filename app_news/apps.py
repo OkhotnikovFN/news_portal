@@ -1,0 +1,8 @@
+from django.apps import AppConfig
+
+
+class AppNewsConfig(AppConfig):
+    name = 'app_news'
+
+    def ready(self):
+        import app_news.signals

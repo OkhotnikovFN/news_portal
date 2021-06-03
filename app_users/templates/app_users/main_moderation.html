@@ -1,0 +1,15 @@
+{% extends 'project_modules/index.html' %}
+
+{% block title %}
+    Главная страница модерации
+{%  endblock %}
+
+{% block content %}
+    <h2>Главная страница модерации</h2>
+    <div class="center-content">
+        <div class="center-content center-content_greeting">
+            <a class="update-link" href="{% url 'app_users:users_list_moderation' %}" aria-label="Перейти к странице модерации пользователей" title="Перейти к странице модерации пользователей">Модерация пользователей</a>
+            <a class="update-link" href="{% url 'app_news:news_list_moderation' %}" aria-label="Перейти к странице модерации новостей" title="Перейти к странице модерации новостей">Модерация новостей</a>
+        </div>
+    </div>
+{% endblock %}

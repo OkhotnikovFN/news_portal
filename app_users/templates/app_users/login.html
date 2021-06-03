@@ -1,0 +1,15 @@
+{% extends 'project_modules/index.html' %}
+
+{% block title %}
+    Вход на новостной портал
+{%  endblock %}
+
+{% block content %}
+    <h2>Войти на сайт</h2>
+    <div class="center-content">
+        <form method="post" action="{% url 'app_users:login' %}?next={% url 'app_users:profile' %}">
+            {% include 'app_users/templates_for_include/login_register_form.html' %}
+            <button type="submit" aria-label="Войти на сайт" title="Войти на сайт">Войти</button>
+        </form>
+    </div>
+{% endblock %}

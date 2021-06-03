@@ -1,0 +1,47 @@
+{% extends 'project_modules/index.html' %}
+
+{% load app_users_templatetags %}
+
+{% block title %}
+        Редактировать новость {{ news.title }}
+{% endblock %}
+
+{% block content %}
+    {% with title_name='Редактировать новость '|add:news.title %}
+        <h2>{{ title_name }}</h2>
+
+        <form method="post" action="{% url 'app_news:news_update' pk=news.id slug=news.slug %}">
+            {% include 'app_news/templates_for_include/base_news_template_form.html' %}
+
+            <div class="update-news">
+                {% if news.is_published %}
+                    <button id="change-news-confirm-button" type="button" aria-label="{{ title_name }}" title="{{ title_name }}">{{ title_name }}</button>
+                    <div class="update-news__confirm-wrap">
+                        <div class="update-news__confirm-container">
+                            <p>Если вы внесли изменения, после подтверждения новость станет неактивной, вы уверены что, хотите применить измененния?</p>
+                            <div class="update-news__confirm-buttons">
+                                <button type="submit" aria-label="Да" title="Да">Да</button>
+                                <button id="change-news-confirm-button-no" type="button" aria-label="Нет" title="Нет">Нет</button>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <button type="submit" aria-label="{{ title_name }}" title="{{ title_name }}">{{ title_name }}</button>
+                {% endif %}
+
+                {% if request.user|is_moderator %}
+                    {% url 'app_news:news_moderate' pk=news.id slug=news.slug as news_moderate_path %}
+                    <a class="update-link" href="{{ news_moderate_path }}" aria-label="Модерация новости" title="Модерация новости">Модерация новости</a>
+                {% endif %}
+            </div>
+        </form>
+
+        <div class="update-news">
+            <form method="post" action="{% url 'app_news:news_delete' pk=news.id slug=news.slug %}">
+
+                {% csrf_token %}
+                <button type="submit">Удалить новость</button>
+            </form>
+        </div>
+    {% endwith %}
+{% endblock %}
