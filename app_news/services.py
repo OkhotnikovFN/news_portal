@@ -1,5 +1,7 @@
 import datetime
 
+import pytz
+from django.conf import settings
 from django.db.models import QuerySet
 from django.http import HttpRequest
 
@@ -9,7 +11,7 @@ from app_news.models import News
 
 def filter_news_queryset_by_title(queryset: QuerySet, request: HttpRequest) -> QuerySet:
     """
-    Регистронезависимя фильтрация запорса новостей по полю title.
+    Регистронезависимя фильтрация запроса новостей по полю title.
     """
     news_title = request.GET.get('news_title')
 
@@ -21,7 +23,7 @@ def filter_news_queryset_by_title(queryset: QuerySet, request: HttpRequest) -> Q
 
 def filter_news_queryset_by_author(queryset: QuerySet, request: HttpRequest) -> QuerySet:
     """
-    Регистронезависимя фильтрация запорса новостей по полю author.
+    Регистронезависимая фильтрация запроса новостей по полю author.
     """
     news_author = request.GET.get('news_author')
 
@@ -33,16 +35,17 @@ def filter_news_queryset_by_author(queryset: QuerySet, request: HttpRequest) -> 
 
 def filter_news_queryset_by_date(queryset: QuerySet, request: HttpRequest) -> QuerySet:
     """
-    Фильтрация запорса новостей по дате создания.
+    Фильтрация запроса новостей по дате создания.
     """
     news_date_begin = request.GET.get('news_date_begin')
     news_date_end = request.GET.get('news_date_end')
+    tz = pytz.timezone(settings.TIME_ZONE)
 
     if news_date_begin:
-        news_date_begin = datetime.datetime.strptime(news_date_begin, '%Y-%m-%d')
+        news_date_begin = tz.localize(datetime.datetime.strptime(news_date_begin, '%Y-%m-%d'))
         queryset = queryset.filter(created_at__gte=news_date_begin)
     if news_date_end:
-        news_date_end = datetime.datetime.strptime(news_date_end, '%Y-%m-%d')
+        news_date_end = tz.localize(datetime.datetime.strptime(news_date_end, '%Y-%m-%d'))
         news_date_end += datetime.timedelta(hours=23, minutes=59, seconds=59)
         queryset = queryset.filter(created_at__lte=news_date_end)
 
@@ -51,7 +54,7 @@ def filter_news_queryset_by_date(queryset: QuerySet, request: HttpRequest) -> Qu
 
 def filter_news_queryset_by_activity(queryset: QuerySet, request: HttpRequest) -> QuerySet:
     """
-    Фильтрация запорса новостей по статусу активности новости.
+    Фильтрация запроса новостей по статусу активности новости.
     """
     displayed_news = request.GET.get('displayed_news')
 
@@ -65,7 +68,7 @@ def filter_news_queryset_by_activity(queryset: QuerySet, request: HttpRequest) -
 
 def create_comment(form: CommentForm, request: HttpRequest, news: News, ):
     """
-    Создание нового комметария к новости.
+    Создание нового комментария к новости.
     """
     new_comment = form.save(commit=False)
     new_comment.news = news

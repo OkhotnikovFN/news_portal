@@ -4,7 +4,7 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UsernameField, UserCreationForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import password_validators_help_texts
-from django.forms import modelformset_factory, inlineformset_factory
+from django.forms import modelformset_factory
 
 from project_modules.forms import ChangeIsValidFormMixin
 from app_users import models
@@ -96,7 +96,7 @@ class UserChangePasswordForm(PasswordChangeForm, ChangeIsValidFormMixin):
 
         for field in self.fields.values():
             field.widget.attrs.update({'class': LOGIN_REGISTER_UPDATE_FIELD_CLASS,
-                                       'title': f'{field.help_text}', })
+                                       'title': field.help_text, })
 
         self.fields['old_password'].widget.attrs.update({'placeholder': 'Введите старый пароль',
                                                          'aria-label': 'Введите старый пароль', })
@@ -183,7 +183,7 @@ class UserProfileCityForm(forms.ModelForm, ChangeIsValidFormMixin):
         city = self.cleaned_data['city']
 
         if not city:
-            self.add_error('city', 'Введите пожалйста название города')
+            self.add_error('city', 'Введите пожалуйста название города')
 
         return city
 

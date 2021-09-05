@@ -123,7 +123,7 @@ STATICFILES_DIRS = (
 # Auth settings
 
 LOGIN_REDIRECT_URL = '/'
-LOGIN_URL = '/users/login'
+LOGIN_URL = '/users/login/'
 
 # Session settings
 

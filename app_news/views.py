@@ -49,7 +49,7 @@ class NewsListView(NewsListBaseView):
 class ModerateNewsListView(ModeratorMixin, NewsListBaseView, BaseFormsetUpdateView):
     """
     Представление для вывода новостей только для модераторов (могут видеть все новости).
-    И мозвожностью массово менять статус новости.
+    И возможностью массово менять статус новости.
     """
     template_name = 'app_news/news_list_moderation.html'
     formset = NewsModerateFormSet
@@ -85,7 +85,7 @@ class PersonalNewsListView(LoginRequiredMixin, NewsListBaseView):
 class NewsDetailCommentCreateView(generic.DetailView, generic.FormView):
     """
     Представление для отображения детальной информации о новости,
-    влючая все комментарии к новости, и возможностью добавления нового комментария.
+    включая все комментарии к новости, и возможностью добавления нового комментария.
     """
     queryset = models.News.objects.prefetch_related(
         Prefetch('comments', queryset=models.Comment.objects.order_by('-created_at'), to_attr='all_comments'),
@@ -128,7 +128,7 @@ class NewsDetailCommentCreateView(generic.DetailView, generic.FormView):
 
 class UserVerificationMixin(LoginRequiredMixin, PermissionRequiredMixin):
     """
-    Миксин верификации поьльзователя, должен быть аутентифицирован и и меть определенные права.
+    Миксин верификации пользователя, должен быть аутентифицирован и и меть определенные права.
     """
     login_url = reverse_lazy('app_users:login')
     permission_required = ['app_news.add_news', 'app_news.change_news', 'app_news.delete_news', 'app_news.view_news']
@@ -184,7 +184,7 @@ class NewsUpdateView(NewsDeleteUpdateMixin, generic.UpdateView):
 
 class NewsModerateView(ModeratorMixin, generic.UpdateView):
     """
-    Модерация новости, добаление статуса активности.
+    Модерация новости, добавление статуса активности.
     """
     template_name = 'app_news/news_moderation.html'
     form_class = forms.NewsModerateForm

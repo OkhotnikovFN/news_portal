@@ -32,19 +32,19 @@ def authenticate_user(form: forms.RegisterForm) -> User:
 
 def filter_users_queryset_by_username(queryset: QuerySet, request: HttpRequest) -> QuerySet:
     """
-    Регистронезависимя фильтрация запорса новостей по полю title.
+    Регистронезависимая фильтрация запроса новостей по полю title.
     """
     username = request.GET.get('username')
 
     if username:
-        queryset = queryset.filter(username__icontains=username)
+        queryset = queryset.filter(user__username__icontains=username)
 
     return queryset
 
 
 def filter_users_queryset_by_verification(queryset: QuerySet, request: HttpRequest) -> QuerySet:
     """
-    Фильтрация запорса новостей по статусу активности новости.
+    Фильтрация запроса новостей по статусу активности новости.
     """
     displayed_news = request.GET.get('displayed_users')
 

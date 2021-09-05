@@ -26,7 +26,7 @@ class NewsForm(forms.ModelForm, ChangeIsValidFormMixin):
 
 class NewsModerateForm(forms.ModelForm, ChangeIsValidFormMixin):
     """
-    Форма для модерации новостной сводки, упарвление статусом is_published модели News.
+    Форма для модерации новостной сводки, управление статусом is_published модели News.
     """
 
     class Meta:

@@ -11,7 +11,7 @@ from app_news import models
 
 class Command(BaseCommand):
     """
-    Класс для заполонения базы случайными новостями.
+    Класс для заполнения базы случайными новостями.
     """
     help = 'create news'
 
@@ -21,7 +21,7 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         """
-        Добавление аргумента общего колличества новостей, которые необходимо добавить.
+        Добавление аргумента общего количества новостей, которые необходимо добавить.
         """
         parser.add_argument('total', type=int, help=u'Количество новых записей')
 
@@ -64,7 +64,7 @@ class Command(BaseCommand):
     def create_news_for_each_author(self, authors):
         """
         Добавление по одной новости автору, чтобы прошел сигнал и
-        автоматически обновилось опубликованное колличесво новостей
+        автоматически обновилось опубликованное количество новостей
         """
         for author in authors:
             title = 'test'

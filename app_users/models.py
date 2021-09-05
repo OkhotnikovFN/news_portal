@@ -27,7 +27,7 @@ class UserProfile(models.Model):
         verbose_name = 'Профиль пользователя'
         verbose_name_plural = 'Профили пользователей'
         permissions = (
-            (VERIFY_USER_PERM_CODE_NAME, "Может верефицировать пользователя"),
+            (VERIFY_USER_PERM_CODE_NAME, "Может верифицировать пользователя"),
         )
 
     @property

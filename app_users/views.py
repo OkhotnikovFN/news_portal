@@ -157,7 +157,7 @@ class ModerateUsersListView(ModeratorMixin, CustomPaginateListView, BaseFormsetU
 
 class UserModerateView(ModeratorMixin, generic.UpdateView):
     """
-    Модерация новости, добаление статуса активности.
+    Модерация пользователя, добавление статуса активности.
     """
     template_name = 'app_users/user_moderation.html'
     form_class = forms.UserProfileVerificationForm
