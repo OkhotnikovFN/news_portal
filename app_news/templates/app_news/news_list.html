@@ -1,11 +1,12 @@
 {% extends 'project_modules/index.html' %}
+{% load i18n %}
 
 {% block title %}
-        Все новости со всех концов света
+        {% trans 'Все новости со всех концов света' %}
 {%  endblock %}
 
 {% block content %}
-    <h2>Все новости</h2>
+    <h2>{% trans 'Все новости' %}</h2>
 
     {% include 'app_news/templates_for_include/accessible_news_filters.html' %}
     {% include 'app_news/templates_for_include/base_news_list.html' %}

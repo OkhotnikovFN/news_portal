@@ -1,3 +1,4 @@
+{% load i18n %}
 {% url 'app_users:profile' as personal_account_path %}
 
 <div class="profile-settings-field {% if request.path == personal_account_path %}profile-settings-field_inside-form-hidden{% endif %}" change-profile-settings-field>
@@ -7,12 +8,12 @@
             {% if settings_value %}
                 {{ settings_value }}
             {% else %}
-                Не указано
+                {% trans 'Не указано' %}
             {% endif %}
         </p>
 
         {% if request.path == personal_account_path %}
-            <a class="update-link" profile_change_link>Изменить</a>
+            <a class="update-link" profile_change_link>{% trans 'Изменить' %}</a>
         {% endif %}
 
     </div>
@@ -45,7 +46,8 @@
                         {{ field }}
                     </p>
                 {% endfor %}
-                <button type="submit" aria-label="Поменять {{ settings_label }}" title="Поменять {{ settings_label }}">Поменять</button>
+                {% trans 'Поменять' as change_trans %}
+                <button type="submit" aria-label="{{ change_trans }} {{ settings_label }}" title="{{ change_trans }} {{ settings_label }}">{{ change_trans }}</button>
             </form>
         </div>
     {% endif %}

@@ -11,7 +11,7 @@ from app_news.models import News
 
 def filter_news_queryset_by_title(queryset: QuerySet, request: HttpRequest) -> QuerySet:
     """
-    Регистронезависимя фильтрация запроса новостей по полю title.
+    Регистронезависимая фильтрация запроса новостей по полю title.
     """
     news_title = request.GET.get('news_title')
 

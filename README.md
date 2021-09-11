@@ -18,6 +18,7 @@
       pip3 install -r requirements.txt
       cd news_portal
       python3 manage.py migrate
+      python3 manage.py compilemessages -i venv/*
       python3 manage.py runserver
       ```
       
@@ -29,6 +30,7 @@
       pip install -r requirements.txt
       cd news_portal
       python manage.py migrate
+      python manage.py compilemessages -i venv/*
       python manage.py runserver
       ```
    После выполнения команд на локальном компьютере развернется приложение, доступное по адресу: http://127.0.0.1:8000/

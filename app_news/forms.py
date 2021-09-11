@@ -1,5 +1,6 @@
 from django import forms
 from django.forms import modelformset_factory
+from django.utils.translation import gettext_lazy as _
 
 from app_news import models
 from project_modules.forms import ChangeIsValidFormMixin
@@ -15,11 +16,11 @@ class NewsForm(forms.ModelForm, ChangeIsValidFormMixin):
         widgets = {
             'title': forms.TextInput(attrs={
                 'class': 'form-field',
-                'aria-label': 'Введите название новости',
+                'aria-label': _('Введите название новости'),
             }),
             'content': forms.Textarea(attrs={
                 'class': 'form-field form-field_content',
-                'aria-label': 'Введите комментарий',
+                'aria-label': _('Введите комментарий'),
             }),
         }
 
@@ -35,8 +36,8 @@ class NewsModerateForm(forms.ModelForm, ChangeIsValidFormMixin):
         widgets = {
             'is_published': forms.CheckboxInput(attrs={
                 'class': 'news-verified-status',
-                'aria-label': 'Поменять статус публикации',
-                'title': 'Поменять статус публикации',
+                'aria-label': _('Поменять статус публикации'),
+                'title': _('Поменять статус публикации'),
             }),
         }
 
@@ -57,13 +58,13 @@ class CommentForm(forms.ModelForm, ChangeIsValidFormMixin):
             'user_name': forms.TextInput(attrs={
                 'required': '',
                 'class': 'form-field',
-                'placeholder': 'Введите свое имя',
-                'aria-label': 'Введите свое имя',
+                'placeholder': _('Введите свое имя'),
+                'aria-label': _('Введите свое имя'),
             }),
             'text': forms.Textarea(attrs={
                 'class': 'form-field form-field_content',
-                'placeholder': 'Введите комментарий',
-                'aria-label': 'Введите комментарий',
+                'placeholder': _('Введите комментарий'),
+                'aria-label': _('Введите комментарий'),
             }),
         }
 
@@ -72,7 +73,7 @@ class CommentForm(forms.ModelForm, ChangeIsValidFormMixin):
         user_name = cleaned_data['user_name']
 
         if not self.user.is_authenticated and not user_name:
-            self.add_error('user_name', 'Необходимо ввести имя пользователя')
+            self.add_error('user_name', _('Необходимо ввести имя пользователя'))
 
         return cleaned_data
 

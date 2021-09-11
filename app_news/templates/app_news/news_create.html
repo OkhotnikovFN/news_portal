@@ -1,11 +1,13 @@
 {% extends 'project_modules/index.html' %}
+{% load i18n %}
 
 {% block title %}
-    Создать новостную сводку
+    {% trans 'Создать новостную сводку' %}
 {% endblock %}
 
 {% block content %}
-    {% with title_name='Создать новостную сводку' %}
+    {% trans 'Создать новостную сводку'  as create_news_trans %}
+    {% with title_name=create_news_trans %}
         <h2>{{ title_name }}</h2>
 
         <form method="post" action="{% url 'app_news:news_create' %}">

@@ -1,4 +1,5 @@
 {% include 'project_modules/templates_for_include/set_links_for_object_list_paginator.html' %}
+{% load i18n %}
 
 {% if news %}
     {% include 'project_modules/templates_for_include/object_paginator_links_list.html' %}
@@ -14,5 +15,5 @@
     {% include 'project_modules/templates_for_include/object_paginator_links_list.html' %}
 
 {% else %}
-    <h2>Нет новостей, удовлетворяюших вашему запросу</h2>
+    <h2>{% trans 'Нет новостей, удовлетворяющих вашему запросу' %}</h2>
 {% endif %}

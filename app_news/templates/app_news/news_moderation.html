@@ -1,11 +1,13 @@
 {% extends 'project_modules/index.html' %}
+{% load i18n %}
 
 {% block title %}
-        Модерация новости {{ news.title }}
+    {% trans 'Модерация новости' %}
 {% endblock %}
 
 {% block content %}
-    {% with title_name='Модерация новости '|add:news.title %}
+    {% trans 'Модерация новости' as moder_news_trans %}
+    {% with title_name=moder_news_trans|add:' '|add:news.title %}
         <h2>{{ title_name }}</h2>
 
         {% include 'app_news/templates_for_include/news_content.html' %}

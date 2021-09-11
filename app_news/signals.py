@@ -23,7 +23,7 @@ def make_slug(sender, instance: News, *args, **kwargs):
 @receiver(signals.post_save, sender=News)
 def update_user_number_published_news_post_news_save(sender, instance: News, created, *args, **kwargs):
     """
-    Сигнал на обновление колличества созданных новостей пользоватлем, после создания новостной сводки
+    Сигнал на обновление количества созданных новостей пользователем, после создания новостной сводки
     """
     if created:
         profile = UserProfile.objects.get(user=instance.author)
@@ -33,7 +33,7 @@ def update_user_number_published_news_post_news_save(sender, instance: News, cre
 @receiver(signals.post_delete, sender=News)
 def update_user_number_published_news_post_news_del(sender, instance: News, *args, **kwargs):
     """
-    Сигнал на обновление колличества созданных новостей пользоватлем, после удаления новостной сводки
+    Сигнал на обновление количества созданных новостей пользователем, после удаления новостной сводки
     """
     profile = UserProfile.objects.get(user=instance.author)
     profile.save()

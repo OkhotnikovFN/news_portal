@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load app_news_templatetags %}
 
 {% if page_obj.has_other_pages %}
@@ -33,10 +34,12 @@
             <nav class="paginate-objects__container">
                 <ul class="paginate-objects__links-list">
                     {% if page_obj.has_previous %}
-                        {% include 'project_modules/templates_for_include/single_link_in_objects_paginator.html' with p=page_obj.previous_page_number text='Предыдущая'%}
+                        {% trans 'Предыдущая'  as prev_trans%}
+                        {% include 'project_modules/templates_for_include/single_link_in_objects_paginator.html' with p=page_obj.previous_page_number text=prev_trans %}
                     {% endif %}
                     {% if page_obj.has_next %}
-                        {% include 'project_modules/templates_for_include/single_link_in_objects_paginator.html' with p=page_obj.next_page_number text='Следующая'%}
+                        {% trans 'Следующая'  as next_trans%}
+                        {% include 'project_modules/templates_for_include/single_link_in_objects_paginator.html' with p=page_obj.next_page_number text=next_trans %}
                     {% endif %}
                 </ul>
             </nav>

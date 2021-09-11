@@ -1,13 +1,14 @@
 {% extends 'project_modules/index.html' %}
+{% load i18n %}
 
 {% block title %}
-        Личные новости
+        {% trans 'Личные новости' %}
 {%  endblock %}
 
 {% block content %}
-    <h2>Ваши новости</h2>
+    <h2>{% trans 'Ваши новости' %}</h2>
     {% if news_successfully_delete %}
-        <h2>Новость {{ deleted_news_title }} успешно удалена</h2>
+        <h2>{% trans 'Новость' %} {{ deleted_news_title }} {% trans 'успешно удалена' %}</h2>
     {% endif %}
 
     {% include 'app_news/templates_for_include/accessible_news_filters.html' %}

@@ -44,3 +44,16 @@ header {
 .submenu_header {
 	transform-origin: 0 0;
 }
+
+.localization-wrap {
+	margin-left: 20px;
+}
+.localization-wrap__label {
+	font-size: 10px;
+	display: flex;
+	align-items: center;
+}
+
+.localization-wrap__select {
+	margin: 4px;
+}

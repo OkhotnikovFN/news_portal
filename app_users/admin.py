@@ -3,6 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils.safestring import mark_safe
+from django.utils.translation import gettext_lazy as _
 
 from app_users import models
 
@@ -14,8 +15,8 @@ class UserProfileInline(admin.TabularInline):
     readonly_fields = ['number_of_published_news']
     model = models.UserProfile
     can_delete = False
-    verbose_name = 'Профиль пользователя'
-    verbose_name_plural = 'Профили пользователей'
+    verbose_name = _('Профиль пользователя')
+    verbose_name_plural = _('Профили пользователей')
 
 
 @admin.register(models.UserProfile)
@@ -30,7 +31,7 @@ class UserProfileAdmin(admin.ModelAdmin):
 
     def make_verified(self, request, queryset):
         """
-        Сделать выбранных пользователей верефицированными
+        Сделать выбранных пользователей верифицированными
         """
         queryset.update(is_verified=True)
 
@@ -42,16 +43,16 @@ class UserProfileAdmin(admin.ModelAdmin):
 
     def user_link(self, obj: models.UserProfile):
         """
-        Добалвение ссылки на связную модель пользователя User
+        Добавление ссылки на связную модель пользователя User
         """
         return mark_safe('<a href="{}">{}</a>'.format(
             reverse("admin:auth_user_change", args=(obj.user.pk,)),
             obj.user.username
         ))
 
-    user_link.short_description = 'Ссылка на связную модель пользователя'
-    make_verified.short_description = 'Сделать выбранных пользователей верефицированными'
-    make_not_verified.short_description = 'Убрать у выбранных пользователей верификацию'
+    user_link.short_description = _('Ссылка на связную модель пользователя')
+    make_verified.short_description = _('Сделать выбранных пользователей верифицированными')
+    make_not_verified.short_description = _('Убрать у выбранных пользователей верификацию')
 
 
 class CustomUserAdmin(UserAdmin):

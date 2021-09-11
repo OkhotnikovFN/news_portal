@@ -2,11 +2,12 @@ from collections import defaultdict
 import time
 
 from django.core.exceptions import PermissionDenied
+from django.utils.translation import gettext_lazy as _
 
 
 class RequestsPerTimeRangeMiddleWare:
     """
-    Ограничение колличества запросов от определенного пользователя за определеннный промежуток времени.
+    Ограничение количества запросов от определенного пользователя за определенный промежуток времени.
     """
     def __init__(self, get_response):
         self.get_response = get_response
@@ -25,7 +26,8 @@ class RequestsPerTimeRangeMiddleWare:
             if current_time - time_request <= TIME_RANGE:
                 number_of_requests += 1
                 if number_of_requests > ALLOWED_NUMBER_OF_REQUESTS:
-                    raise PermissionDenied(f"{ip}, Превышено разрешенное колличество запросов")
+                    print(_("{ip}, Превышено разрешенное количество запросов").format(ip=ip))
+                    raise PermissionDenied(_("{ip}, Превышено разрешенное количество запросов").format(ip=ip))
             else:
                 self.times_of_requests[ip] = self.times_of_requests[ip][-i:]
                 break

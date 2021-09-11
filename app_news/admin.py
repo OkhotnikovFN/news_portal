@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.translation import gettext_lazy as _
 
 from app_news import models
 
@@ -34,8 +35,8 @@ class NewsAdmin(admin.ModelAdmin):
         """
         queryset.update(is_active=False)
 
-    activate_news.short_description = 'Активировать выбранные новости'
-    deactivate_news.short_description = 'Деактивировать выбранные новости'
+    activate_news.short_description = _('Активировать выбранные новости')
+    deactivate_news.short_description = _('Деактивировать выбранные новости')
 
 
 @admin.register(models.Comment)
@@ -51,7 +52,7 @@ class CommentAdmin(admin.ModelAdmin):
         """
         Установить текст комментария "Удален администратором".
         """
-        queryset.update(text='Комментарий удален администратором')
+        queryset.update(text=_('Комментарий удален администратором'))
 
     def display_text(self, obj: models.Comment):
         """
@@ -61,5 +62,5 @@ class CommentAdmin(admin.ModelAdmin):
         text = obj.text
         return f'{text[:len_to_display]}...' if len(text) > len_to_display else text
 
-    delete_comment_by_admin.short_description = 'Модерировать выбранные комментарии'
-    display_text.short_description = 'Комментарий'
+    delete_comment_by_admin.short_description = _('Модерировать выбранные комментарии')
+    display_text.short_description = _('Комментарий')

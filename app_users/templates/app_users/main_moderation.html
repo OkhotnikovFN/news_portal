@@ -1,15 +1,18 @@
 {% extends 'project_modules/index.html' %}
+{% load i18n %}
 
 {% block title %}
-    Главная страница модерации
+    {% trans 'Главная страница модерации' %}
 {%  endblock %}
 
 {% block content %}
-    <h2>Главная страница модерации</h2>
+    <h2>{% trans 'Главная страница модерации' %}</h2>
     <div class="center-content">
         <div class="center-content center-content_greeting">
-            <a class="update-link" href="{% url 'app_users:users_list_moderation' %}" aria-label="Перейти к странице модерации пользователей" title="Перейти к странице модерации пользователей">Модерация пользователей</a>
-            <a class="update-link" href="{% url 'app_news:news_list_moderation' %}" aria-label="Перейти к странице модерации новостей" title="Перейти к странице модерации новостей">Модерация новостей</a>
+            {% trans 'Модерация пользователей' users_moderate_trans %}
+            <a class="update-link" href="{% url 'app_users:users_list_moderation' %}" aria-label="{{ users_moderate_trans }}" title="{{ users_moderate_trans }}">{{ users_moderate_trans }}</a>
+            {% trans 'Модерация новостей' news_moderate_trans %}
+            <a class="update-link" href="{% url 'app_news:news_list_moderation' %}" aria-label="{{ news_moderate_trans }}" title="{{ news_moderate_trans }}">{{ news_moderate_trans }}</a>
         </div>
     </div>
 {% endblock %}

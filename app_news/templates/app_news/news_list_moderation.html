@@ -1,13 +1,14 @@
 {% extends 'project_modules/index.html' %}
+{% load i18n %}
 
 {% load app_news_templatetags %}
 
 {% block title %}
-        Модерация новостей
+        {% trans 'Модерация новостей' %}
 {%  endblock %}
 
 {% block content %}
-    <h2>Новости для модерации</h2>
+    <h2>{% trans 'Новости для модерации' %}</h2>
 
     {% include 'app_news/templates_for_include/accessible_news_filters.html' %}
     {% include 'app_news/templates_for_include/activity_news_filter.html' %}
@@ -31,7 +32,7 @@
         </form>
 
     {% else %}
-        <h2>Нет новостей, удовлетворяющих вашему запросу</h2>
+        <h2>{% trans 'Нет новостей, удовлетворяющих вашему запросу' %}</h2>
     {% endif %}
 
 {% endblock %}

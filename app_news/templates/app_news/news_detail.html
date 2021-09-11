@@ -1,9 +1,10 @@
 {% extends 'project_modules/index.html' %}
+{% load i18n %}
 
 {% load app_users_templatetags %}
 
 {% block title %}
-    Детальная информация о новости {{ news }}
+    {% trans 'Детальная информация о новости' %} {{ news }}
 {%  endblock %}
 
 
@@ -12,38 +13,40 @@
     <div class="single-news-edit-links">
         {% if request.user == news.author%}
             {% url 'app_news:news_update' pk=news.id slug=news.slug as news_update_path %}
-            <a href="{{ news_update_path }}" class="update-link" aria-label="Редактировать новость" title="Редактировать новость">Редактировать новость</a>
+            {% trans 'Редактировать новость' as edit_news_trans %}
+            <a href="{{ news_update_path }}" class="update-link" aria-label="{{ edit_news_trans }}" title="{{ edit_news_trans }}">{{ edit_news_trans }}</a>
             <form method="post" action="{% url 'app_news:news_delete' pk=news.id slug=news.slug %}">
                 {% csrf_token %}
-                <button type="submit">Удалить новость</button>
+                <button type="submit">{% trans 'Удалить новость' %}</button>
             </form>
         {% endif %}
         {% if request.user|is_moderator %}
             {% url 'app_news:news_moderation' pk=news.id slug=news.slug as news_moderate_path %}
-            <a class="update-link" href="{{ news_moderate_path }}" aria-label="Модерация новости" title="Модерация новости">Модерация новости</a>
+            {% trans 'Модерация новости' as news_moder_trans %}
+            <a class="update-link" href="{{ news_moderate_path }}" aria-label="{{ news_moder_trans }}" title="{{ news_moder_trans }}">{{ news_moder_trans }}</a>
         {% endif %}
     </div>
 
     {% include 'app_news/templates_for_include/news_content.html' %}
 
-    <h2>Комментарии</h2>
+    <h2>{% trans 'Комментарии' %}</h2>
     <ol class="news-comments">
         {% for comment in news.all_comments %}
             <li class="news-comments__item">
                 <div class="comment-content">
-                    <p class="comment-content__item">Автор: {{ comment }}</p>
+                    <p class="comment-content__item">{% trans 'Автор' %}: {{ comment }}</p>
                     <p class="comment-content__item comment-content__item_text">{{ comment.text }}</p>
-                    <p class="content-info">Дата публикации: {{ comment.created_at }}</p>
+                    <p class="content-info">{% trans 'Дата публикации' %}: {{ comment.created_at }}</p>
                 </div>
             </li>
         {% empty %}
             <div class="comment-content">
-                <p class="comment-content__item">Комментариев пока что нету, вы можете стать первым</p>
+                <p class="comment-content__item">{% trans 'Комментариев пока что нету, вы можете стать первым' %}</p>
             </div>
         {% endfor %}
     </ol>
 
-    <h2>Добавить комментарий</h2>
+    <h2>{% trans 'Добавить комментарий' %}</h2>
     <form method="post" action="{% url 'app_news:news_detail' pk=news.pk slug=news.slug%}">
         {% csrf_token %}
         {{ form.non_field_errors }}
@@ -66,7 +69,8 @@
             {{ form.text }}
         </p>
 
-        <button type="submit" aria-label="Опубликовать комментарий" title="Опубликовать комментарий">Опубликовать комментарий</button>
+        {% trans 'Опубликовать комментарий' as publish_comment_trans %}
+        <button type="submit" aria-label="{{ publish_comment_trans }}" title="{{ publish_comment_trans }}">{{ publish_comment_trans }}</button>
     </form>
 
 {% endblock %}

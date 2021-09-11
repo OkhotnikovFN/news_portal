@@ -1,20 +1,27 @@
 {% extends 'project_modules/index.html' %}
+{% load i18n %}
 
 {% block title %}
-        Модерация пользователя {{ user_profile.user.username }}
+        {% trans 'Модерация пользователя' %} {{ user_profile.user.username }}
 {% endblock %}
 
 {% block content %}
     <div class="center-content">
         <div class="center-content center-content_greeting">
-            {% with title_name='Модерация пользователя '|add:user_profile.user.username %}
+            {% trans 'Модерация пользователя' as moderate_user_trans%}
+            {% with title_name=moderate_user_trans|add:' '|add:user_profile.user.username %}
                 <h2>{{ title_name }}</h2>
 
-                {% include 'app_users/templates_for_include/profile_settings_field.html' with settings_label='Имя пользователя' settings_value=user_profile.user.username %}
-                {% include 'app_users/templates_for_include/profile_settings_field.html' with settings_label='Электронная почта' settings_value=user_profile.user.email %}
-                {% include 'app_users/templates_for_include/profile_settings_field.html' with settings_label='Город' settings_value=user_profile.city %}
-                {% include 'app_users/templates_for_include/profile_settings_field.html' with settings_label='Номер телефона' settings_value=user_profile.telephone %}
-                {% include 'app_users/templates_for_include/profile_settings_field.html' with settings_label='Колличество созданных новостей' settings_value=user_profile.number_of_published_news %}
+                {% trans 'Имя пользователя' as username_trans %}
+                {% include 'app_users/templates_for_include/profile_settings_field.html' with settings_label=username_trans settings_value=user_profile.user.username %}
+                {% trans 'Электронная почта' as email_trans %}
+                {% include 'app_users/templates_for_include/profile_settings_field.html' with settings_label=email_trans settings_value=user_profile.user.email %}
+                {% trans 'Город' as city_trans %}
+                {% include 'app_users/templates_for_include/profile_settings_field.html' with settings_label=city_trans settings_value=user_profile.city %}
+                {% trans 'Номер телефона' as phone_number_trans %}
+                {% include 'app_users/templates_for_include/profile_settings_field.html' with settings_label=phone_number_trans settings_value=user_profile.telephone %}
+                {% trans 'Количество созданных новостей' as count_news_trans %}
+                {% include 'app_users/templates_for_include/profile_settings_field.html' with settings_label=count_news_trans settings_value=user_profile.number_of_published_news %}
 
                 <div class="center-content user-status {% if user_profile.is_verified %}user-status_verified{% else %}user-status_not-verified{% endif %}">
                     <form method="post" action="{% url 'app_users:user_moderation' pk=user_profile.id%}">

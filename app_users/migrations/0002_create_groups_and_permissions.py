@@ -9,7 +9,7 @@ from app_users.permissions import VERIFIED_USER_GROUP_NAME, MODERATOR_USER_GROUP
 
 def create_groups(apps: Apps, schema_editor: BaseDatabaseSchemaEditor):
     """
-    Создание групп пользователей (Ферефецированные и модераторы) и раздача им необходимых прав доступа.
+    Создание групп пользователей (Верифицированные и модераторы) и раздача им необходимых прав доступа.
     """
     db_alias = schema_editor.connection.alias
     emit_post_migrate_signal(2, False, db_alias)
@@ -34,7 +34,7 @@ def create_groups(apps: Apps, schema_editor: BaseDatabaseSchemaEditor):
 
 def delete_groups(apps: Apps, schema_editor: BaseDatabaseSchemaEditor):
     """
-    Удаление созданных групп пользователей (Ферефецированные и модераторы).
+    Удаление созданных групп пользователей (Верифицированные и модераторы).
     """
     Group = apps.get_model('auth', 'Group')
 
